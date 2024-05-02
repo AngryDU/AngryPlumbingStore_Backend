@@ -1,0 +1,60 @@
+rsa:
+  rsa-private-key: ${PRIVATE_KEY}
+  rsa-public-key: ${PUBLIC_KEY}
+spring:
+  application:
+    name: plumbing-store-microservice-auth
+  config:
+    activate:
+      on-profile: development
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  mail:
+    host: ${HOST_MAIL}
+    port: ${PORT_MAIL}
+    username: ${LOGIN_MAIL}
+    password: ${PASSWORD_MAIL}
+    properties:
+      mail:
+        smtp:
+          auth: ${PROP_MAIL_SMTP_AUTH_MAIL}
+          starttls:
+            enable: ${PROP_MAIL_SMTP_STARTTLS_ENABLE_MAIL}
+  datasource:
+    url: ${URL_DB}
+    username: ${LOGIN_DB}
+    password: ${PASSWORD_DB}
+  flyway:
+    locations: classpath:db/migration
+    schemas: public
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    placeholders:
+      key: value
+server:
+  forward-headers-strategy: framework
+  servlet:
+    contextPath: /api/${app.version}
+  port: ${SERVER_PORT}
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    min-response-size: 10240
+app:
+  version: v0.0.1
+  host: ${APP_HOST}
+  frontHost: ${FRONT_HOST}
+  frontToLoginPage: ${FRONT_HOST}/login
+  frontToResetPass: ${FRONT_HOST}/reset
+  jwtSecret: ${JWT_SECRET}
+  jwtExpirationMs: ${JWT_EXPIRATION}
+  jwtCookieName: ${JWT_COOKIE_NAME}
